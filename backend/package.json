@@ -5,11 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-  "dev": "tsx watch src/server.ts",
-  "prisma:generate": "prisma generate",
+    "dev": "tsx watch src/server.ts",
+    "prisma:generate": "prisma generate",
     "build": "npm run prisma:generate && tsc",
-  "start":"node dist/server.js"
-},
+    "start": "node dist/server.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
