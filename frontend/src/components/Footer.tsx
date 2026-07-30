@@ -88,7 +88,9 @@ export default function Footer() {
           <div className="flex gap-3">
 
             <a
-              href="#"
+              href="https://github.com/bhawnauk/Tech-Job_scraping_portal"
+              target="_blank"
+              rel="noreferrer"
               aria-label="GitHub"
               className="
                 flex
@@ -109,7 +111,9 @@ export default function Footer() {
             </a>
 
             <a
-              href="#"
+              href="https://www.linkedin.com/in/bhawnayadavuk/"
+              target="_blank"
+              rel="noreferrer"
               aria-label="LinkedIn"
               className="
                 flex

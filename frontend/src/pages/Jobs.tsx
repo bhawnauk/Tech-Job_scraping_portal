@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import { getJobs } from "../api/jobs";
 import JobCard from "../components/JobCard";
@@ -13,6 +13,7 @@ export default function Jobs() {
   const {
     data,
     isLoading,
+    isFetching,
     error
   } = useQuery({
 
@@ -21,7 +22,9 @@ export default function Jobs() {
       page
     ],
 
-    queryFn: () => getJobs(page, 6)
+    queryFn: () => getJobs(page, 6),
+
+    placeholderData: keepPreviousData
 
   });
 
@@ -132,8 +135,29 @@ export default function Jobs() {
             {
               data && (
 
-                <p className="text-sm font-semibold text-navy/50">
+                <p className="flex items-center gap-2 text-sm font-semibold text-navy/50">
+
+                  {
+                    isFetching && !isLoading && (
+
+                      <span
+                        aria-hidden
+                        className="
+                          h-3.5
+                          w-3.5
+                          animate-spin
+                          rounded-full
+                          border-2
+                          border-navy/20
+                          border-t-navy/60
+                        "
+                      />
+
+                    )
+                  }
+
                   Page {data.page} of {data.totalPages}
+
                 </p>
 
               )
@@ -221,13 +245,15 @@ export default function Jobs() {
             !isLoading && !error && (
 
               <div
-                className="
+                className={`
                   grid
                   grid-cols-1
                   md:grid-cols-2
                   lg:grid-cols-3
                   gap-6
-                "
+                  transition-opacity
+                  ${isFetching ? "opacity-50" : "opacity-100"}
+                `}
               >
 
                 {
@@ -270,7 +296,7 @@ export default function Jobs() {
               <div className="mt-14 flex flex-wrap items-center justify-center gap-2">
 
                 <button
-                  disabled={page === 1}
+                  disabled={page === 1 || isFetching}
                   onClick={() => setPage((prev) => prev - 1)}
                   className="
                     rounded-full
@@ -301,6 +327,7 @@ export default function Jobs() {
 
                     <button
                       key={pageNumber}
+                      disabled={isFetching}
                       onClick={() => setPage(pageNumber)}
                       className={`
                         h-10
@@ -309,6 +336,7 @@ export default function Jobs() {
                         text-sm
                         font-bold
                         transition
+                        disabled:cursor-not-allowed
 
                         ${
                           page === pageNumber
@@ -325,7 +353,7 @@ export default function Jobs() {
 
 
                 <button
-                  disabled={page === data?.totalPages}
+                  disabled={page === data?.totalPages || isFetching}
                   onClick={() => setPage((prev) => prev + 1)}
                   className="
                     rounded-full
