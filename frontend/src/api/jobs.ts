@@ -2,8 +2,8 @@ import axios from "axios";
 import type { Job } from "../types/job";
 
 
-const API_URL =
-  "http://localhost:5050/api/jobs";
+
+ const API_URL = import.meta.env.VITE_API_URL;
 
 
 interface JobsResponse {
