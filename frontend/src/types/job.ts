@@ -1,0 +1,22 @@
+export interface Job {
+
+  id: string;
+
+  title: string;
+
+  company: string;
+
+  location: string;
+
+  url: string;
+
+  source: string;
+
+  description: string;
+
+  salary?: string;
+
+  remote?: boolean;
+
+  createdAt: string;
+}
