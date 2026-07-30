@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
   "dev": "tsx watch src/server.ts",
-  "seed": "tsx prisma/seed/seed.ts",
-  "build":"tsc",
+  "prisma:generate": "prisma generate",
+    "build": "npm run prisma:generate && tsc",
   "start":"node dist/server.js"
 },
   "keywords": [],
